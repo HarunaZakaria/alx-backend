@@ -1,24 +1,29 @@
+#!/usr/bin/env python3
+"""Create a class FIFOCache that inherits from BaseCaching and is a caching system:
+"""
 from base_caching import BaseCaching
 
 class FIFOCache(BaseCaching):
     def __init__(self):
         super().__init__()
-        self.queue = []  # Initialize a list to keep track of the cache items
 
     def put(self, key, item):
         if key is None or item is None:
-            return
+            pass
+        else:
+             if len(self.cache_data) >= BaseCaching.MAX_ITEMS \
+                    and key not in self.cache_data.keys():
+                first_key = next(iter(self.cache_data.keys()))
+                del self.cache_data[first_key]
+                print("DISCARD: {}". format(first_key))
 
-        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            oldest_key = self.queue.pop(0)
-            del self.cache_data[oldest_key]
-            print(f"DISCARD: {oldest_key}\n")
-
-        self.cache_data[key] = item
-        self.queue.append(key)
+                self.cache_data[key] = item
 
     def get(self, key):
-        if key is None or key not in self.cache_data:
+        """return the value in self.cache_data linked to key
+        Args:
+                key (_type_): _description_
+        """
+        if key is None or key not in self.cache_data.keys():
             return None
-
-        return self.cache_data[key]
+        return self.cache_data.get(key)
