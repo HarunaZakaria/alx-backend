@@ -1,47 +1,41 @@
 #!/usr/bin/env python3
-""" Create a class BasicCache that inherits from BaseCaching and is a caching system:
+"""Create a class BasicCache that inherits from
+BaseCaching and is a caching system:
 
-You must use self.cache_data - dictionary from the parent class BaseCaching
+You must use self.cache_data - dictionary from
+the parent class BaseCaching
 This caching system doesn’t have limit
 def put(self, key, item):
-Must assign to the dictionary self.cache_data the item value for the key key.
-If key or item is None, this method should not do anything.
+Must assign to the dictionary self.cache_data the
+item value for the key key.
+If key or item is None, this method should not do
+anything.
 def get(self, key):
-Must return the value in self.cache_data linked to key.
-If key is None or if the key doesn’t exist in self.cache_data, return None.Create a class BasicCache that inherits from BaseCaching and is a caching system:
-
-You must use self.cache_data - dictionary from the parent class BaseCaching
-This caching system doesn’t have limit
-def put(self, key, item):
-Must assign to the dictionary self.cache_data the item value for the key key.
-If key or item is None, this method should not do anything.
-def get(self, key):
-Must return the value in self.cache_data linked to key.
-If key is None or if the key doesn’t exist in self.cache_data, return None.
+Must return the value in self.cache_data linked
+to key.
+If key is None or if the key doesn’t exist in
+self.cache_data, return None.
 """
+
+
 BaseCaching = __import__('base_caching').BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """
-    Defines a class for caching information in key-value pairs
-    Methods:
-        put(key, item) - store a key-value pair
-        get(key) - retrieve the value associated with a key
+    """_summary_
     """
 
     def __init__(self):
-        """
-        Initialize the class using the parent class __init__ method
+        """_summary_
         """
         super().__init__()
 
     def put(self, key, item):
-        """
-        Store a key-value pair
+        """_summary_
+
         Args:
-            Key
-            Item
+                key (_type_): _description_
+                item (_type_): _description_
         """
         if key is None or item is None:
             pass
@@ -49,10 +43,11 @@ class BasicCache(BaseCaching):
             self.cache_data[key] = item
 
     def get(self, key):
+        """return the value in self.cache_data linked to key
+
+        Args:
+                key (_type_): _description_
         """
-        Return value linked to key.
-        If key is None or doesn't exist, return None
-        """
-        if key is not None and key in self.cache_data.keys():
-            return self.cache_data[key]
-        return None
+        if key is None or key not in self.cache_data.keys():
+            return None
+        return self.cache_data.get(key)
