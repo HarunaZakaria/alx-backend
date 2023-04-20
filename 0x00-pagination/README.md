@@ -1,0 +1,1 @@
+THIS IS A SOLUTION TO 0x00-pagination TASK 
