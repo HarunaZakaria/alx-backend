@@ -63,5 +63,6 @@ class LRUCache(BaseCaching):
                         key (_type_): _description_
         """
         if key is None or key not in self.cache_data.keys():
+            self.usedKeys.append(self.usedKeys.pop(self.usedKeys.index(key)))
             return None
         return self.cache_data.get(key)
