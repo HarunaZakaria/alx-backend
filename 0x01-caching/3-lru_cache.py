@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a class LIFOCache that inherits from
+"""Create a class LRUCache that inherits from
 BaseCaching and is a caching system:
 
 You must use self.cache_data - dictionary from
@@ -13,10 +13,10 @@ If key or item is None, this method should not do
 anything.
 If the number of items in self.cache_data is higher
 that BaseCaching.MAX_ITEMS:
-you must discard the last item put in cache
-(LIFO algorithm)
-you must print DISCARD: with the key discarded and
-following by a new line
+you must discard the least recently used item
+(LRU algorithm)
+you must print DISCARD: with the key discarded
+and following by a new line
 def get(self, key):
 Must return the value in self.cache_data linked to key.
 If key is None or if the key doesn’t exist in
@@ -62,7 +62,7 @@ class LRUCache(BaseCaching):
         Args:
                         key (_type_): _description_
         """
-        if key is None or key not in self.cache_data.keys():
+        if key is not None and key in self.cache_data.keys():
             self.usedKeys.append(self.usedKeys.pop(self.usedKeys.index(key)))
-            return None
-        return self.cache_data.get(key)
+            return self.cache_data.get(key)
+        return None
