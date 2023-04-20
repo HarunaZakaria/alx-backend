@@ -35,6 +35,7 @@ class LRUCache(BaseCaching):
         """_summary_
         """
         super().__init__()
+        self.usedKeys = []
 
     def put(self, key, item):
         """_summary_
@@ -43,16 +44,17 @@ class LRUCache(BaseCaching):
                         key (_type_): _description_
                         item (_type_): _description_
         """
-        if key is None or item is None:
-            pass
-        else:
-            if len(self.cache_data) >= BaseCaching.MAX_ITEMS \
-                    and key not in self.cache_data.keys():
-                # delete the least item in the dictionary
-                least_key, last_value = self.cache_data.popitem()
-                print("DISCARD: {}". format(least_key))
-
+        if key is not None and item is not None:
             self.cache_data[key] = item
+            if key not in self.usedKeys:
+                self.usedKeys.append(key)
+            else:
+                self.usedKeys.append(
+                    self.usedKeys.pop(self.usedKeys.index(key)))
+            if len(self.usedKeys) > BaseCaching.MAX_ITEMS:
+                discard = self.usedKeys.pop(0)
+                del self.cache_data[discard]
+                print('DISCARD: {:s}'.format(discard))
 
     def get(self, key):
         """return the value in self.cache_data linked to key
